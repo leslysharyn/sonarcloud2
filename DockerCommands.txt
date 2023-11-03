@@ -1,0 +1,47 @@
+# Remueve todos los contenedores (forzado)
+docker rm -f $(docker ps -aq)
+
+
+
+# Baja todos los contenedores he imagenes
+docker-compose down -v       
+#Prod
+docker-compose -f docker-compose.yml down -v
+
+#Construye la imagen y la levanta
+docker-compose up -d --build 
+#Prod
+docker-compose -f docker-compose.yml up -d --build 
+
+#Estar seguro en usuarios MacOS de tener apagado AirPlay Receiver
+(Go to System Preference --> Sharing --> uncheck off the AirPlay Receiver)
+
+#Estar seguro que los archivos docker-compose.prod.yml, Dockerfile.prod, entrypoint.prod.sh están 
+#en LF (configuración de salto de línea en el editor de texto) para Linux
+
+#construye una imagen docker de un archivo Dockerfile
+docker build --tag cloudtask .
+
+#crea un contenedor de una imagen docker
+docker run -p 5000:5000 cloudtask
+
+#El end point del request es http://localhost:1337/
+
+#conectarse a la bd desde la terminal del contenedor
+psql --username=misoadmin --dbname=cloudtask
+\l
+\dt
+
+
+# Flask comands:
+sudo sh jmeter -n -t ../../jmeter_test_scalability_1000.jmx -l results_test_standarfile_200.csv
+
+python3 -m venv susenv
+
+source susenv/bin/activate
+
+para desactivar el ambiente corre: 
+deactivate
+
+pip3 install -r requirements.txt
+flask --debug run

@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  appoffer:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    expose:
+      - 4001
+    ports:
+      - 4001:4001
+    env_file:
+      - ./.env
+    depends_on:
+      - dboffer
+  dboffer:
+    image: postgres:13-alpine
+    env_file:
+      - ./.env.db
